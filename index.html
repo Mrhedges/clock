@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clock</title>
+
+  <script>
+    function setTime() {
+
+      const clockEl = document.getElementById('clock');
+
+      function formatAMPM() {
+        const d = new Date();
+
+        let hours = d.getHours();
+        let minutes = d.getMinutes();
+
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        
+        let strTime = hours + ':' + minutes;
+
+        clockEl.innerHTML = strTime;
+      };
+
+      setInterval(formatAMPM, 1000);
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #121212;
+      height: 100vh;
+    }
+
+    .clock-container {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #clock {
+      font-family: 'Gill sans', sans-serif;
+      color: white;
+      font-size: 40vw;
+      text-align: center;
+      vertical-align: center;
+    }
+  </style>
+</head>
+<body onload="setTime()">
+  <div class="clock-container">
+    <span id="clock"></span>
+  </div>
+</body>
+</html>
