@@ -9,8 +9,9 @@
       const CONFIG_CHECK_INTERVAL = 10000;
       const CONFIG_URL = 'https://mrhedges.github.io/clock/config.json';
       const CLOCK_INTERVAL = 1000;
-
       const clockEl = document.getElementById('clock');
+
+      const headers = new Headers().append('Cache-Control', 'no-cache');
 
       (function setTime() {
 
@@ -33,7 +34,7 @@
       })();
 
       (function getConfig() {
-        fetch(CONFIG_URL)
+        fetch(CONFIG_URL, { headers })
           .then(response => response.json())
           .then(config => {
 
@@ -42,8 +43,7 @@
               const el = document.getElementById(key);
 
               Object.entries(value)
-                .forEach((k, v) => {
-                  console.log(key, value);
+                .forEach(([k, v]) => {
                   el.style[k] = v;
                 });
             })
