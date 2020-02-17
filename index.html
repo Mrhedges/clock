@@ -4,26 +4,56 @@
   <title>Clock</title>
 
   <script>
-    function setTime() {
+    function run() {
+
+      const CONFIG_CHECK_INTERVAL = 10000;
+      const CONFIG_URL = 'https://mrhedges.github.io/clock/config.json';
+      const CLOCK_INTERVAL = 1000;
 
       const clockEl = document.getElementById('clock');
 
-      function formatAMPM() {
-        const d = new Date();
+      (function setTime() {
 
-        let hours = d.getHours();
-        let minutes = d.getMinutes();
+        function getCurrentTime() {
+          const d = new Date();
 
-        hours = hours % 12;
-        hours = hours ? hours : 12;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        
-        let strTime = hours + ':' + minutes;
+          let hours = d.getHours();
+          let minutes = d.getMinutes();
 
-        clockEl.innerHTML = strTime;
-      };
+          hours = hours % 12;
+          hours = hours ? hours : 12;
+          minutes = minutes < 10 ? '0' + minutes : minutes;
+          
+          let strTime = hours + ':' + minutes;
 
-      setInterval(formatAMPM, 1000);
+          clockEl.innerHTML = strTime;
+        }
+
+        setTimeout(getCurrentTime, CLOCK_INTERVAL);
+      })();
+
+      (function getConfig() {
+        fetch(CONFIG_URL)
+          .then(response => response.json())
+          .then(config => {
+
+          Object.entries(config)
+            .forEach(([key, value]) => {
+              const el = document.getElementById(key);
+
+              Object.entries(value)
+                .forEach((k, v) => {
+                  console.log(key, value);
+                  el.style[k] = v;
+                });
+            })
+          })
+          .catch(err => {
+            console.error('Error fetching remote configuration:', err);
+          });
+
+        setTimeout(getConfig, CONFIG_CHECK_INTERVAL);
+      })();
     }
   </script>
 
@@ -49,7 +79,7 @@
     }
   </style>
 </head>
-<body onload="setTime()">
+<body id="body" onload="run()">
   <div class="clock-container">
     <span id="clock"></span>
   </div>
