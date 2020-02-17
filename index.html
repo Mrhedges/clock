@@ -11,7 +11,8 @@
       const CLOCK_INTERVAL = 1000;
       const clockEl = document.getElementById('clock');
 
-      const headers = new Headers().append('Cache-Control', 'no-cache');
+      let headers = new Headers()
+      headers = headers.append('Cache-Control', 'no-store');
 
       (function setTime() {
 
@@ -34,23 +35,27 @@
       })();
 
       (function getConfig() {
-        fetch(CONFIG_URL, { headers })
-          .then(response => response.json())
-          .then(config => {
+        fetch(CONFIG_URL, {
+          method: 'GET',
+          mode: 'cors',
+          headers
+        })
+        .then(response => response.json())
+        .then(config => {
 
-          Object.entries(config)
-            .forEach(([key, value]) => {
-              const el = document.getElementById(key);
+        Object.entries(config)
+          .forEach(([key, value]) => {
+            const el = document.getElementById(key);
 
-              Object.entries(value)
-                .forEach(([k, v]) => {
-                  el.style[k] = v;
-                });
-            })
+            Object.entries(value)
+              .forEach(([k, v]) => {
+                el.style[k] = v;
+              });
           })
-          .catch(err => {
-            console.error('Error fetching remote configuration:', err);
-          });
+        })
+        .catch(err => {
+          console.error('Error fetching remote configuration:', err);
+        });
 
         setTimeout(getConfig, CONFIG_CHECK_INTERVAL);
       })();
