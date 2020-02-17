@@ -6,13 +6,15 @@
   <script>
     function run() {
 
-      const CONFIG_CHECK_INTERVAL = 10000;
+      const CONFIG_CHECK_INTERVAL = 60000;
       const CONFIG_URL = 'https://mrhedges.github.io/clock/config.json';
       const CLOCK_INTERVAL = 1000;
       const clockEl = document.getElementById('clock');
 
-      let headers = new Headers()
-      headers = headers.append('Cache-Control', 'no-store');
+      // can't set cache control headers unless making a fetch in 'no-cors' mode, but this is a cross-origin request.
+      // let headers = new Headers();
+      // headers.append('Cache-Control', 'no-store');
+      // headers.append('Pragma', 'no-cache');
 
       (function setTime() {
 
@@ -35,10 +37,11 @@
       })();
 
       (function getConfig() {
+
         fetch(CONFIG_URL, {
           method: 'GET',
           mode: 'cors',
-          headers
+          // headers
         })
         .then(response => response.json())
         .then(config => {
@@ -64,7 +67,7 @@
 
   <style>
     body {
-      background-color: #121212;
+      /* background-color: #121212; */
       height: 100vh;
     }
 
@@ -76,9 +79,9 @@
     }
 
     #clock {
-      font-family: 'Gill sans', sans-serif;
-      color: white;
-      font-size: 40vw;
+      /* font-family: 'Gill sans', sans-serif; */
+      /* color: white; */
+      /* font-size: 40vw; */
       text-align: center;
       vertical-align: center;
     }
