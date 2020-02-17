@@ -1,0 +1,10 @@
+body {
+  background-color: black;
+}
+
+#clock {
+  color: green;
+  font-family: 'Gill sans', sans-serif;
+  font-size: 40vw;
+}
+
