@@ -29,6 +29,7 @@
           minutes = minutes < 10 ? '0' + minutes : minutes;
           
           let strTime = hours + ':' + minutes;
+          // let strTime = '1' + hours + ':' + minutes;
 
           clockEl.innerHTML = strTime;
 
@@ -73,7 +74,7 @@
     }
 
     body {
-      /* background-color: #121212; */
+      background-color: #121212;
       height: 100vh;
     }
 
@@ -86,16 +87,14 @@
     }
 
     #clock {
-      /* font-family: 'Alata', sans-serif; */
-      /* color: white; */
-      /* font-size: 40vw; */
+      font-family: 'Alata', sans-serif;
+      color: white;
+      font-size: 40vw;
       text-align: center;
       vertical-align: center;
     }
   </style>
-<!-- 
-font-family: 'Alata', ;
-font-family: 'GFS Neohellenic', ; -->
+
 <link href="https://fonts.googleapis.com/css?family=Alata|GFS+Neohellenic&display=swap" rel="stylesheet">
 </head>
 <body id="body" onload="run()">
