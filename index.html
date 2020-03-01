@@ -31,9 +31,11 @@
           let strTime = hours + ':' + minutes;
 
           clockEl.innerHTML = strTime;
+
+          setTimeout(getCurrentTime, CLOCK_INTERVAL);
         }
 
-        setTimeout(getCurrentTime, CLOCK_INTERVAL);
+        getCurrentTime();
       })();
 
       (function getConfig() {
@@ -66,26 +68,35 @@
   </script>
 
   <style>
+    body, html {
+      overflow: hidden;
+    }
+
     body {
       /* background-color: #121212; */
       height: 100vh;
     }
 
     .clock-container {
-      height: 100vh;
+      overflow: hidden;
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
     #clock {
-      /* font-family: 'Gill sans', sans-serif; */
+      /* font-family: 'Alata', sans-serif; */
       /* color: white; */
       /* font-size: 40vw; */
       text-align: center;
       vertical-align: center;
     }
   </style>
+<!-- 
+font-family: 'Alata', ;
+font-family: 'GFS Neohellenic', ; -->
+<link href="https://fonts.googleapis.com/css?family=Alata|GFS+Neohellenic&display=swap" rel="stylesheet">
 </head>
 <body id="body" onload="run()">
   <div class="clock-container">
